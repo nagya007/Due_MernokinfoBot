@@ -15,5 +15,6 @@ namespace DUE_Mernokinfo_Bot
         public String SubjectCode { get; set; }
         public String ClassCode { get; set; }
         public bool ZH { get; set; }
+        public string Participants { get; set;}
     }
 }
