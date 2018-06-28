@@ -10,7 +10,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DUE_Mernokinfo_Bot
 {
     public class Data
-    {   [Key]
+    {
+        [Key]
         public int EventId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

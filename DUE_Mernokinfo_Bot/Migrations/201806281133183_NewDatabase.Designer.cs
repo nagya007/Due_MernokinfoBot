@@ -7,13 +7,13 @@ namespace DUE_Mernokinfo_Bot.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CreatData : IMigrationMetadata
+    public sealed partial class NewDatabase : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreatData));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewDatabase));
         
         string IMigrationMetadata.Id
         {
-            get { return "201806241926384_CreatData"; }
+            get { return "201806281133183_NewDatabase"; }
         }
         
         string IMigrationMetadata.Source

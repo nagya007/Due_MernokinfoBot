@@ -13,9 +13,9 @@ E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csproj.CoreCompileInputs.cache
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.exe
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.pdb
-E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.Migrations.CreatData.resources
-E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csproj.GenerateResource.Cache
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\bin\Debug\DUE_Mernokinfo_Bot.exe.manifest
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\bin\Debug\DUE_Mernokinfo_Bot.application
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.exe.manifest
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.application
+E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.Migrations.NewDatabase.resources
+E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csproj.GenerateResource.Cache

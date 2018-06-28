@@ -88,9 +88,9 @@
     <Compile Include="BusinessLogicService.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DbService.cs" />
-    <Compile Include="Migrations\201806241926384_CreatData.cs" />
-    <Compile Include="Migrations\201806241926384_CreatData.Designer.cs">
-      <DependentUpon>201806241926384_CreatData.cs</DependentUpon>
+    <Compile Include="Migrations\201806281133183_NewDatabase.cs" />
+    <Compile Include="Migrations\201806281133183_NewDatabase.Designer.cs">
+      <DependentUpon>201806281133183_NewDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -104,11 +104,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806241926384_CreatData.resx">
-      <DependentUpon>201806241926384_CreatData.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
@@ -119,6 +114,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806281133183_NewDatabase.resx">
+      <DependentUpon>201806281133183_NewDatabase.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

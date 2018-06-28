@@ -10,7 +10,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DUE_Mernokinfo_Bot
 {
     public class User
-    {   [Key]
+    {
+        [Key]
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
