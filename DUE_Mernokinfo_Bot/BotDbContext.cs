@@ -11,5 +11,6 @@ namespace DUE_Mernokinfo_Bot
     {
         public DbSet<Data> Datas { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserEnrolled> UserEnrolleds { get; set; }
     }
 }

@@ -36,10 +36,10 @@ namespace DUE_Mernokinfo_Bot
                 return true;
             }
             return false;
-        }       
+        }
         public IQueryable<Data> GetDayByDate(DateTime date)
         {
-           return this.datas.Where(data => data.StartDate.Year ==date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day);           
+            return this.datas.Where(data => data.StartDate.Year == date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day);
         }
         public IQueryable<Data> GetHourByDate(DateTime date)
         {
@@ -47,14 +47,23 @@ namespace DUE_Mernokinfo_Bot
         }
         public Data GetNextZh()
         {
-            return  this.datas.OrderBy(data => data.StartDate).FirstOrDefault(data => data.ZH == true);
+            return this.datas.OrderBy(data => data.StartDate).FirstOrDefault(data => data.ZH == true);
 
         }
         public Data GetNext()
         {
             return this.datas.OrderBy(data => data.StartDate).First();
         }
-      
+        public bool GetChatIdByUserName(string user/*/Username/*/)
+        {
+            if (null =="2")
+            {
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 }
