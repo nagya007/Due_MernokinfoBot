@@ -11,10 +11,14 @@ namespace DUE_Mernokinfo_Bot
     {
         public BotDbContext context;
         public DbSet<Data> datas;
+        public DbSet<User> users;
+        public DbSet<UserEnrolled> userEnrolleds;
         public DbService()
         {
             context = new BotDbContext();
             this.datas = context.Datas;
+            this.users = context.Users;
+            this.userEnrolleds = context.UserEnrolleds;
         }
         public bool AddData(Data data)
         {
@@ -54,16 +58,39 @@ namespace DUE_Mernokinfo_Bot
         {
             return this.datas.OrderBy(data => data.StartDate).First();
         }
-        public bool GetChatIdByUserName(string user/*/Username/*/)
+        public bool IsUserExists(string username)
         {
-            if (null =="2")
-            {
-            }
-            else
-            {
-                return false;
-            }
+            return this.users.Any(u => u.UserName == username);
         }
+        public bool UpdateUserByAndUserName(string username, long chatid)
+        {
 
+            var result = this.users.SingleOrDefault(u => u.UserName == username);
+            if (result != null)
+            {
+                result.ChatId = chatid;
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public bool SingUpEvent(UserEnrolled userEnrolled)
+        {
+            if (this.userEnrolleds.Add(userEnrolled).Equals(userEnrolled))
+            {
+                this.userEnrolleds.Add(userEnrolled);
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public User GetUserByChatId(long chatid)
+        {
+            return this.users.FirstOrDefault(u => u.ChatId == chatid);
+        }
+        public Data GetEventByName(string subjectCode)
+        {
+            return this.datas.FirstOrDefault(d => d.SubjectCode == subjectCode);
+        }
     }
 }
