@@ -66,7 +66,7 @@ namespace DUE_Mernokinfo_Bot
         public static void On_Message(object sender, MessageEventArgs e)
         {
             DbService dbService = new DbService();
-            if (dbService.IsUserExists(e.Message.Chat.Username))
+            if (dbService.IsUserExists(e.Message.Chat.Username)| e.Message.Chat.Id== -261290206)
             {
                 if (e.Message.Type == MessageType.Text)
                     {
@@ -199,18 +199,32 @@ namespace DUE_Mernokinfo_Bot
                                     Bot.SendTextMessageAsync(72204263, $"Hiba a help parancsal");
                                     break;
                                 }
-                        case "/singupevent":
-                            
-                                UserEnrolled userenrolled = new UserEnrolled();
-                                User user = dbService.GetUserByChatId(e.Message.Chat.Id);
-                                Data data = dbService.GetEventByName("LSD");
-                                userenrolled.UserId = user.UserId;
-                                userenrolled.EventId = data.EventId;                                
-                                dbService.SingUpEvent(userenrolled);
-                                Console.WriteLine("Add event!");
-                                break;
-                           
-                            case "/start":
+                            case "/singupevent":
+                                try
+                                {
+                                    UserEnrolled userenrolled = new UserEnrolled();
+                                    User user = dbService.GetUserByChatId(e.Message.Chat.Id);
+                                    Data data = dbService.GetEventByName(messages[1].ToString());
+                                    if (!dbService.IsUserSingUpEvent(user, data))
+                                    {
+                                        userenrolled.UserId = user.UserId;
+                                        userenrolled.EventId = data.EventId;
+                                        dbService.SingUpEvent(userenrolled);
+                                        Console.WriteLine("Add event!");
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Már feliratkoztál az eseményre. {data.StartDate} kor kezdődik!");
+                                        break;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Valami probléma történt nem sikerült feliratkozni az eseményre figyelj a név megadására!");
+                                    break;
+                                }                      
+                           case "/start":
                                 try
                                 {
                                 if (dbService.UpdateUserByAndUserName(e.Message.Chat.Username, e.Message.Chat.Id))
@@ -226,8 +240,6 @@ namespace DUE_Mernokinfo_Bot
                                     Bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Chat.Id.ToString());
                                     username = e.Message.Chat.Username;
                                     Console.WriteLine($"azt írta {username} hogy start");
-
-
                                     break;
                                 }
                                 catch (Exception)
@@ -251,9 +263,6 @@ namespace DUE_Mernokinfo_Bot
                                         Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Nincs esemény!");
                                         break;
                                     }
-
-
-
                                 }
                                 catch (Exception)
                                 {

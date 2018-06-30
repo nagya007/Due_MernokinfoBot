@@ -92,5 +92,22 @@ namespace DUE_Mernokinfo_Bot
         {
             return this.datas.FirstOrDefault(d => d.SubjectCode == subjectCode);
         }
+        public IQueryable<Data> GetEventByUserSingUp()
+        {
+            return null;
+            
+        }
+        public bool IsUserSingUpEvent(User user, Data data)
+        {
+            if (this.userEnrolleds.Any(u => u.UserId == user.UserId) && this.userEnrolleds.Any(d => d.EventId == data.EventId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
     }
 }
