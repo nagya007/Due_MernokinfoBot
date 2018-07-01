@@ -45,6 +45,28 @@ namespace DUE_Mernokinfo_Bot
         {
             return this.datas.Where(data => data.StartDate.Year == date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day);
         }
+        public IQueryable<UserEnrolled> GetDayByDateAndSingUp(User user, Data data)
+        {
+           return this.userEnrolleds.Where(u => u.UserId == user.UserId && u.EventId == data.EventId);
+        }
+        public IQueryable GetSingUpEvent(User user)
+        {
+            var result = (from d in datas
+                          join ur in userEnrolleds on d.EventId equals ur.EventId
+                          join u in users on ur.UserId equals u.UserId
+                          select new
+                          {
+                              d.EventId,
+                              u.UserId,
+                              d.StartDate,
+                              d.EndDate,
+                              d.SubjectCode,
+                              d.ClassCode,
+                              d.ZH
+                          }).Where(z => z.UserId ==user.UserId);
+                  return result;
+        }
+
         public IQueryable<Data> GetHourByDate(DateTime date)
         {
             return this.datas.Where(data => data.StartDate.Year == date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day && data.StartDate.Hour == date.Hour && data.StartDate.Minute == date.Minute && data.StartDate.Second == date.Second);
