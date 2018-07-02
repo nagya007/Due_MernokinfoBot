@@ -46,20 +46,24 @@ namespace DUE_Mernokinfo_Bot
             Console.WriteLine(DateTime.Now.ToString());
             DateTime onehure = DateTime.Now.AddHours(1);
             IQueryable<Data> ringonehour = dbService.GetHourByDate(onehure);
+            string ringone = "";
+            string ringten = "";
             foreach (var item in ringonehour)
             {
-                Bot.SendTextMessageAsync(72204263, $"Egy óra múlva kezdődik!");
-                Bot.SendTextMessageAsync(72204263, $"{item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
+                ringone += $"Egy óra múlva kezdődik! \n {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}";
                 Console.WriteLine($" {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
             }
+            Bot.SendTextMessageAsync(72204263, ringone);
+
             DateTime tenminutedate = DateTime.Now.AddMinutes(10);
             IQueryable<Data> ringtenminute = dbService.GetHourByDate(tenminutedate);
             foreach (var item in ringtenminute)
             {
-                Bot.SendTextMessageAsync(72204263, $"10 perc múlva kezdődik!");
-                Bot.SendTextMessageAsync(72204263, $"{item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
+                ringten += $"10 perc múlva kezdődik! \n {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}";
                 Console.WriteLine($"  {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}  ");
             }
+            Bot.SendTextMessageAsync(72204263, ringten);
+
         }
         public static void On_Message(object sender, MessageEventArgs e)
         {
@@ -299,11 +303,14 @@ namespace DUE_Mernokinfo_Bot
                             {
                                 User user = dbService.GetUserByChatId(e.Message.Chat.Id);
                                 IQueryable result = dbService.GetSingUpEvent(user);
+                                string kiir = "";
                                 foreach (var item in result)
                                 {
-                                    Console.WriteLine($"{item.ToString()}");
-                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, item.ToString());
+                                    string s = item + "\n";
+                                    string[] z = s.Split(' ');
+                                    kiir += $"{z[21]} {z[24]} {z[3]} {z[6]} {z[9]}{z[10]}{z[11]}{z[12]} - {z[15]}{z[16]}{z[17]}{z[18]} {z[27]} \n";
                                 }
+                                Bot.SendTextMessageAsync(e.Message.Chat.Id, kiir);
                                 break;
                             }
                             catch (Exception)
@@ -316,7 +323,7 @@ namespace DUE_Mernokinfo_Bot
             }
             else
             {
-                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Jelenleg nem elérhető a bot számodra!");
+                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Jelenleg nem elérhrtő számodra a bot!");
             }
         }
     }
