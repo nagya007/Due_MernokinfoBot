@@ -69,33 +69,69 @@ namespace DUE_Mernokinfo_Bot
             string kiir = "";
             foreach (var item in result)
             {
-                string s = item + "\n";
-                string[] z = s.Split(' ');
-                kiir += $"{z[21]} {z[24]} \n {z[9]}{z[10]}{z[11]}{z[12]} \n {z[15]}{z[16]}{z[17]}{z[18]} \n {z[27]} \n";
+                //   string s = item + "\n";
+                // string[] z = s.Split(' ');
+                // kiir += $"{z[21]} {z[24]} \n {z[9]}{z[10]}{z[11]}{z[12]} \n {z[15]}{z[16]}{z[17]}{z[18]} \n {z[27]} \n";
+
+                kiir += $"{Writer.wSubjectcode}{item.SubjectCode}\n" +
+                            $"{Writer.wClasscode}{item.ClassCode}\n" +
+                            $"{Writer.wStartdate}\n{item.StartDate} \n " +
+                            $"{Writer.wEnddate}\n{item.EndDate} \n " +
+                            $"{Writer.wZh}{item.ZH}\n \n";
+
+
             }
             return kiir;
         }
-        public void GetNextZhByUser(User user)
+        public string GetNextZhByUser(User user)
         {
             var result = (from d in datas
                           join ur in userEnrolleds on d.EventId equals ur.EventId
                           join u in users on ur.UserId equals u.UserId
-                          select new Writer
+                          select new
                           {
-                              WEventId = d.EventId,
-                              WUserId = u.UserId,
-                              WStartDate = d.StartDate,
-                              WEndDate = d.EndDate,
-                              WSubjectCode = d.SubjectCode,
-                              WClassCode = d.ClassCode,
-                              WZh = d.ZH
-                          }).Where(z => z.WUserId == user.UserId).OrderBy(d => d.WStartDate).FirstOrDefault(d => d.WZh == true);
+                              d.EventId,
+                              u.UserId,
+                              d.StartDate,
+                              d.EndDate,
+                              d.SubjectCode,
+                              d.ClassCode,
+                              d.ZH
+                          }).Where(z => z.UserId == user.UserId).OrderBy(d => d.StartDate).FirstOrDefault(d => d.ZH == true);
+            string kiir = "";
+            kiir += $"{Writer.wSubjectcode}{result.SubjectCode}\n" +
+                $"{Writer.wClasscode}{result.ClassCode}\n" +
+                $"{Writer.wStartdate}{result.StartDate} \n " +
+                $"{Writer.wEnddate}{result.EndDate} \n {Writer.wZh}{result.ZH}\n";
+            return kiir;
         }
+        public string GetDayByUserByDate(User user, DateTime date)
+        {
+            var resultu = (from d in datas
+                           join ur in userEnrolleds on d.EventId equals ur.EventId
+                           join u in users on ur.UserId equals u.UserId
+                           select new
+                           {
+                               d.EventId,
+                               u.UserId,
+                               d.StartDate,
+                               d.EndDate,
+                               d.SubjectCode,
+                               d.ClassCode,
+                               d.ZH
+                           }).Where(z => z.UserId == user.UserId).Where(d => d.StartDate.Year == date.Year && d.StartDate.Month == date.Month && d.StartDate.Day == date.Day);
 
-        //string kiir = "";
-        //kiir += $"{result.SubjectCode} {result.ClassCode} \n {result.StartDate} \n {result.EndDate} \n {result.ZH}";
-        //    return kiir;
-
+            string kiir = "";
+            foreach (var item in resultu)
+            {
+                kiir += $"{Writer.wSubjectcode}{item.SubjectCode}\n" +
+               $"{Writer.wClasscode}{item.ClassCode}\n" +
+               $"{Writer.wStartdate}{item.StartDate} \n " +
+               $"{Writer.wEnddate}{item.EndDate} \n " +
+               $"{Writer.wZh}{item.ZH}\n";
+            }
+            return kiir;
+        }
         public IQueryable<Data> GetHourByDate(DateTime date)
         {
             return this.datas.Where(data => data.StartDate.Year == date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day && data.StartDate.Hour == date.Hour && data.StartDate.Minute == date.Minute && data.StartDate.Second == date.Second);
@@ -114,7 +150,6 @@ namespace DUE_Mernokinfo_Bot
         }
         public bool UpdateUserByAndUserName(string username, long chatid)
         {
-
             var result = this.users.SingleOrDefault(u => u.UserName == username);
             if (result != null)
             {

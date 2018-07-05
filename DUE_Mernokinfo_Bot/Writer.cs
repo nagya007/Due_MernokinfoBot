@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DUE_Mernokinfo_Bot
 {
-   public class Writer
+    public class Writer
     {
         public int WEventId { get; set; }
         public int WUserId { get; set; }
@@ -15,11 +15,11 @@ namespace DUE_Mernokinfo_Bot
         public string WSubjectCode { get; set; }
         public string WClassCode { get; set; }
         public bool WZh { get; set; }
-        const string wSubjectcode = "Neve";
-        const string wStartdate = "Kezdő dátum: ";
-        const string wEnddate = "Vég dátum: ";
-        const string wClasscode = "Csoport: ";
-        const string wZh = "Zh-e? : ";
+        public const string wSubjectcode = "Esemény: ";
+        public const string wStartdate = "Kezdődátum: ";
+        public const string wEnddate = "Végdátum: ";
+        public const string wClasscode = "Csoport: ";
+        public const string wZh = "Zh-e? : ";
 
     }
 }
