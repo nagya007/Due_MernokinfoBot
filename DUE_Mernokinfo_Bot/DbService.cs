@@ -13,12 +13,14 @@ namespace DUE_Mernokinfo_Bot
         public DbSet<Data> datas;
         public DbSet<User> users;
         public DbSet<UserEnrolled> userEnrolleds;
+        public Writer w = new Writer();
         public DbService()
         {
             context = new BotDbContext();
             this.datas = context.Datas;
             this.users = context.Users;
             this.userEnrolleds = context.UserEnrolleds;
+
         }
         public bool AddData(Data data)
         {
@@ -73,25 +75,27 @@ namespace DUE_Mernokinfo_Bot
             }
             return kiir;
         }
-        public string GetNextZhByUser(User user)
+        public void GetNextZhByUser(User user)
         {
             var result = (from d in datas
                           join ur in userEnrolleds on d.EventId equals ur.EventId
                           join u in users on ur.UserId equals u.UserId
-                          select new
+                          select new Writer
                           {
-                              d.EventId,
-                              u.UserId,
-                              d.StartDate,
-                              d.EndDate,
-                              d.SubjectCode,
-                              d.ClassCode,
-                              d.ZH
-                          }).Where(z => z.UserId == user.UserId).OrderBy(d => d.StartDate).FirstOrDefault(d => d.ZH == true);
-            string kiir = "";
-            kiir += $"{result.SubjectCode} {result.ClassCode} \n {result.StartDate} \n {result.EndDate} \n {result.ZH}";
-            return kiir;
+                              WEventId = d.EventId,
+                              WUserId = u.UserId,
+                              WStartDate = d.StartDate,
+                              WEndDate = d.EndDate,
+                              WSubjectCode = d.SubjectCode,
+                              WClassCode = d.ClassCode,
+                              WZh = d.ZH
+                          }).Where(z => z.WUserId == user.UserId).OrderBy(d => d.WStartDate).FirstOrDefault(d => d.WZh == true);
         }
+
+        //string kiir = "";
+        //kiir += $"{result.SubjectCode} {result.ClassCode} \n {result.StartDate} \n {result.EndDate} \n {result.ZH}";
+        //    return kiir;
+
         public IQueryable<Data> GetHourByDate(DateTime date)
         {
             return this.datas.Where(data => data.StartDate.Year == date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day && data.StartDate.Hour == date.Hour && data.StartDate.Minute == date.Minute && data.StartDate.Second == date.Second);
@@ -99,7 +103,6 @@ namespace DUE_Mernokinfo_Bot
         public Data GetNextZh()
         {
             return this.datas.OrderBy(data => data.StartDate).FirstOrDefault(data => data.ZH == true);
-
         }
         public Data GetNext()
         {

@@ -9,7 +9,6 @@ E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\bin\Debug\Ent
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\bin\Debug\EntityFramework.SqlServer.xml
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\bin\Debug\Newtonsoft.Json.xml
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\bin\Debug\Telegram.Bot.xml
-E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csprojResolveAssemblyReference.cache
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csproj.CoreCompileInputs.cache
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.exe
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.pdb
@@ -19,3 +18,5 @@ E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.application
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.Migrations.Refresshdatabase.resources
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csproj.GenerateResource.Cache
+E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csprojAssemblyReference.cache
+E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csproj.CopyComplete

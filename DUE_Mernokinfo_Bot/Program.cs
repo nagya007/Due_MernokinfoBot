@@ -19,6 +19,7 @@ namespace DUE_Mernokinfo_Bot
         public DbService dbService = new DbService();
         public BotDbContext context = new BotDbContext();
         public static string username;
+        
         // public static long chatid;
         static void Main(string[] args)
         {
@@ -404,18 +405,19 @@ namespace DUE_Mernokinfo_Bot
                     case "/mynextzh":
                         try
                         {
+                            Writer w = new Writer();
                             User nextuser = dbService.GetUserByChatId(e.Message.Chat.Id);
-                            var nextzh = dbService.GetNextZhByUser(nextuser);
-                            if (nextzh != null)
-                            {
-                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{nextzh}");
+                            dbService.GetNextZhByUser(nextuser);
+                            //if (w.WSubjectCode!=null)
+                            //{
+                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{w.WEventId} {w.WUserId} {w.WSubjectCode} {w.WStartDate} {w.WEndDate} {w.WClassCode} {w.WZh}");
                                 break;
-                            }
-                            else
-                            {
-                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Nincs zh!");
-                                break;
-                            }
+                            //}
+                            //else
+                            //{
+                            //    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Nincs zh!");
+                            //    break;
+                            //}
                         }
                         catch (Exception)
                         {
