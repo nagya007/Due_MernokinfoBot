@@ -19,7 +19,6 @@ namespace DUE_Mernokinfo_Bot
         public DbService dbService = new DbService();
         public BotDbContext context = new BotDbContext();
         public static string username;
-
         // public static long chatid;
         static void Main(string[] args)
         {
@@ -42,6 +41,8 @@ namespace DUE_Mernokinfo_Bot
         }
         public static void PrintTime()
         {
+
+            Writer w = new Writer();
             DbService dbService = new DbService();
             dbService.RemoveDataByEndDate();
             Console.WriteLine(DateTime.Now.ToString());
@@ -51,11 +52,10 @@ namespace DUE_Mernokinfo_Bot
             string ringten = "";
             foreach (var item in ringonehour)
             {
-                ringone += $"Egy óra múlva kezdődik! \n {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}";
+                ringone += $"Egy óra múlva kezdődik! \n {w.WSubjectCode} \n{item.SubjectCode},\n {w.WClassCode} \n  {item.ClassCode}, \n {w.WStartDate} \n {item.StartDate}, \n {w.WEndDate} \n {item.EndDate}, \n {w.WZh} \n {item.ZH}";
                 Console.WriteLine($" {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
             }
             Bot.SendTextMessageAsync(72204263, ringone);
-
             DateTime tenminutedate = DateTime.Now.AddMinutes(10);
             IQueryable<Data> ringtenminute = dbService.GetHourByDate(tenminutedate);
             foreach (var item in ringtenminute)
@@ -198,32 +198,7 @@ namespace DUE_Mernokinfo_Bot
                                 Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Valami hiba lépett fel kérlek probáld később!");
                                 Bot.SendTextMessageAsync(72204263, $"Hiba a help parancsal");
                                 break;
-                            }
-                        case "/singupevent":
-                            try
-                            {
-                                UserEnrolled userenrolled = new UserEnrolled();
-                                User suser = dbService.GetUserByChatId(e.Message.Chat.Id);
-                                Data data = dbService.GetEventByName(messages[1].ToString());
-                                if (!dbService.IsUserSingUpEvent(suser, data))
-                                {
-                                    userenrolled.UserId = suser.UserId;
-                                    userenrolled.EventId = data.EventId;
-                                    dbService.SingUpEvent(userenrolled);
-                                    Console.WriteLine("Add event!");
-                                    break;
-                                }
-                                else
-                                {
-                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Már feliratkoztál az eseményre. {data.StartDate} kor kezdődik!");
-                                    break;
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Valami probléma történt nem sikerült feliratkozni az eseményre figyelj a név megadására!");
-                                break;
-                            }
+                            }                       
                         case "/start":
                             try
                             {
@@ -236,7 +211,6 @@ namespace DUE_Mernokinfo_Bot
                                     Console.WriteLine("Sikertelen!");
                                 }
                                 Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Ez a bot a Dunaújvárosi Mérnökinfós hallgatók eseményeinek nyilvántartására és jelzésére jött létre.");
-                                Bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Chat.Id.ToString());
                                 username = e.Message.Chat.Username;
                                 Console.WriteLine($"azt írta {username} hogy start");
                                 break;
@@ -281,20 +255,7 @@ namespace DUE_Mernokinfo_Bot
                                 Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Valami hiba lépett fel kérlek probáld később!");
                                 Bot.SendTextMessageAsync(72204263, $"Hiba a donate parancsal");
                                 break;
-                            }
-                        case "/test":
-                            try
-                            {
-                                User user = dbService.GetUserByChatId(e.Message.Chat.Id);
-                                string result = dbService.GetSingUpEvent(user);
-                                Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Valami nem sikerült kérlek próbáld később!");
-                                break;
-                            }
+                            }                       
                     }
                 }
             }
@@ -341,15 +302,12 @@ namespace DUE_Mernokinfo_Bot
                         try
                         {
                             DateTime tudaydate = DateTime.Now;
-                            IQueryable<Data> today = null;
-                            today = dbService.GetDayByDate(tudaydate);
-                            if (today != null)
-                            {
-                                foreach (var item in today)
-                                {
-                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
-                                    Console.WriteLine($" {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
-                                }
+                            string  mytoday = null;
+                            User mydayuser = dbService.GetUserByChatId(e.Message.Chat.Id);
+                            mytoday = dbService.GetDayByUserByDate(mydayuser,tudaydate);
+                            if (mytoday != null)
+                            {                               
+                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{mytoday}");
                                 break;
                             }
                             else
@@ -369,15 +327,12 @@ namespace DUE_Mernokinfo_Bot
                         try
                         {
                             DateTime nextdaydate = DateTime.Now.AddDays(1);
-                            IQueryable<Data> nextday = null;
-                            nextday = dbService.GetDayByDate(nextdaydate);
-                            if (nextday != null)
-                            {
-                                foreach (var item in nextday)
-                                {
-                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
-                                    Console.WriteLine($" {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
-                                }
+                            string mynextday = null;
+                            User nextdayuser = dbService.GetUserByChatId(e.Message.Chat.Id);
+                            mynextday = dbService.GetDayByUserByDate(nextdayuser, nextdaydate);
+                            if (mynextday != null)
+                            {                                
+                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{mynextday}");
                                 break;
                             }
                             else
@@ -393,16 +348,7 @@ namespace DUE_Mernokinfo_Bot
                             Bot.SendTextMessageAsync(72204263, $"Hiba a nextday parancsal");
                             break;
                         }
-                    case "/nextmyday":
-                        try
-                        {
-                            break;
-                        }
-                        catch (Exception)
-                        {
-                            break;
-                        }
-                    case "/mynextzh":
+                        case "/mynextzh":
                         try
                         {
                             Writer w = new Writer();
@@ -498,20 +444,7 @@ namespace DUE_Mernokinfo_Bot
                             Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Valami hiba lépett fel kérlek probáld később!");
                             Bot.SendTextMessageAsync(72204263, $"Hiba a donate parancsal");
                             break;
-                        }
-                    case "/mytest":
-                        try
-                        {
-                            User user = dbService.GetUserByChatId(e.Message.Chat.Id);
-                            string result = dbService.GetSingUpEvent(user);
-                            Bot.SendTextMessageAsync(e.Message.Chat.Id, result);
-                            break;
-                        }
-                        catch (Exception)
-                        {
-                            Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Valami nem sikerült kérlek próbáld később!");
-                            break;
-                        }
+                        }                  
                 }
             }
             else
