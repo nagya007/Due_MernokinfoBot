@@ -68,11 +68,7 @@ namespace DUE_Mernokinfo_Bot
                           }).Where(z => z.UserId == user.UserId);
             string kiir = "";
             foreach (var item in result)
-            {
-                //   string s = item + "\n";
-                // string[] z = s.Split(' ');
-                // kiir += $"{z[21]} {z[24]} \n {z[9]}{z[10]}{z[11]}{z[12]} \n {z[15]}{z[16]}{z[17]}{z[18]} \n {z[27]} \n";
-
+            {               
                 kiir += $"{Writer.wSubjectcode}{item.SubjectCode}\n" +
                             $"{Writer.wClasscode}{item.ClassCode}\n" +
                             $"{Writer.wStartdate}\n{item.StartDate} \n " +
@@ -189,6 +185,6 @@ namespace DUE_Mernokinfo_Bot
             }
 
         }
-       
+             
     }
 }
