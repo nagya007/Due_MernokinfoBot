@@ -64,14 +64,12 @@ namespace DUE_Mernokinfo_Bot
                     userenrolled.UserId = suser.UserId;
                     userenrolled.EventId = data.EventId;
                     dbService.SingUpEvent(userenrolled);
-                    Console.WriteLine("Add event!");
-                   
+                    Console.WriteLine("Add event!");                  
                 }
                 else
                 {
                   await Bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, $"Már feliratkoztál az eseményre. {data.StartDate} kor kezdődik!");
                 }
-
             }
 
         }
@@ -126,20 +124,8 @@ namespace DUE_Mernokinfo_Bot
                         case "/id":
                             try
                             {
-                                var inlineKeyboard = new InlineKeyboardMarkup(new[]
-                                {
-                                    new[]
-                                    {
-                                      InlineKeyboardButton.WithCallbackData("1"),
-                                      InlineKeyboardButton.WithCallbackData("11"),
-                                      InlineKeyboardButton.WithCallbackData("220")
-                                    },
-                                    new[]
-                                    {
-                                      InlineKeyboardButton.WithCallbackData("Mukodik")
-                                    }
-                              });
-                                Bot.SendTextMessageAsync(e.Message.Chat.Id, "OK", replyMarkup: inlineKeyboard);
+                                Bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Chat.Id.ToString());
+                                Console.WriteLine(e.Message.Chat.Id.ToString());
                                 break;
                             }
                             catch (Exception)
@@ -519,6 +505,69 @@ namespace DUE_Mernokinfo_Bot
                             Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Valami hiba lépett fel kérlek probáld később!");
                             Bot.SendTextMessageAsync(72204263, $"Hiba a donate parancsal");
                             break;
+                        }
+                    case "/calender":
+                        try
+                        {
+                            var inlineKeyboard = new InlineKeyboardMarkup(new[]
+                               {
+                                    new[]
+                                    {
+                                      InlineKeyboardButton.WithCallbackData("1"),
+                                      InlineKeyboardButton.WithCallbackData("2"),
+                                      InlineKeyboardButton.WithCallbackData("3"),
+                                      InlineKeyboardButton.WithCallbackData("4"),
+                                      InlineKeyboardButton.WithCallbackData("5"),
+                                      InlineKeyboardButton.WithCallbackData("5"),
+                                      InlineKeyboardButton.WithCallbackData("7"),
+
+                                    },
+                                    new[]
+                                    {
+                                      InlineKeyboardButton.WithCallbackData("8"),
+                                      InlineKeyboardButton.WithCallbackData("9"),
+                                      InlineKeyboardButton.WithCallbackData("10"),
+                                       InlineKeyboardButton.WithCallbackData("11"),
+                                        InlineKeyboardButton.WithCallbackData("12"),
+                                         InlineKeyboardButton.WithCallbackData("13"),
+                                          InlineKeyboardButton.WithCallbackData("14"),
+                                    },
+                                    new[]
+                                    {
+                                      InlineKeyboardButton.WithCallbackData("15"),
+                                      InlineKeyboardButton.WithCallbackData("16"),
+                                      InlineKeyboardButton.WithCallbackData("17"),
+                                       InlineKeyboardButton.WithCallbackData("18"),
+                                        InlineKeyboardButton.WithCallbackData("19"),
+                                         InlineKeyboardButton.WithCallbackData("20"),
+                                          InlineKeyboardButton.WithCallbackData("21"),
+                                    },
+                                    new[]
+                                    {
+                                      InlineKeyboardButton.WithCallbackData("22"),
+                                      InlineKeyboardButton.WithCallbackData("23"),
+                                      InlineKeyboardButton.WithCallbackData("24"),
+                                       InlineKeyboardButton.WithCallbackData("25"),
+                                        InlineKeyboardButton.WithCallbackData("26"),
+                                         InlineKeyboardButton.WithCallbackData("27"),
+                                          InlineKeyboardButton.WithCallbackData("28"),
+                                    },
+                                    new[]
+                                    {
+                                         InlineKeyboardButton.WithCallbackData("29"),
+                                          InlineKeyboardButton.WithCallbackData("30"),
+                                           InlineKeyboardButton.WithCallbackData("31"),
+                                    },
+
+                                });
+                            Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Nap", replyMarkup: inlineKeyboard);
+
+                            break;
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
                         }
                 }
             }
