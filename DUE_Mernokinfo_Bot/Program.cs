@@ -13,6 +13,8 @@ using System.Data;
 using System.Runtime.Remoting.Contexts;
 using System.Threading;
 using Telegram.Bot.Types.ReplyMarkups;
+using Telegram.Bot.Types.InlineQueryResults;
+
 
 namespace DUE_Mernokinfo_Bot
 {
@@ -35,7 +37,6 @@ namespace DUE_Mernokinfo_Bot
             Bot.StopReceiving();
             Console.ReadLine();
         }
-
         private static async void Bot_OnCallbackQuery(object sender, CallbackQueryEventArgs e)
         {
             var callbackQuery = e.CallbackQuery;
@@ -49,15 +50,30 @@ namespace DUE_Mernokinfo_Bot
             //    callbackQuery.Message.Chat.Id,
             //    $"Received {callbackQuery.Data}");
 
-            //inlineKeyBoardData += callbackQuery.Data;
+            
 
-            //if (inlineKeyBoardData.Length == 1)
-            //{
-            //    Bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, string.Format("{0}", inlineKeyBoardData), replyMarkup: new ReplyKeyboardRemove());
-            //    Bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, $"a");
-            //    inlineKeyBoardData = string.Empty;
+            if (callbackQuery.Data == "Emlékeztess!")
+            {
+                DbService dbService = new DbService();
+                await Bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, string.Format("{0}", callbackQuery.Message.Text), replyMarkup: new ReplyKeyboardRemove());
+                UserEnrolled userenrolled = new UserEnrolled();
+                User suser = dbService.GetUserByChatId(callbackQuery.Message.Chat.Id);
+                Data data = dbService.GetEventByName(callbackQuery.Message.Text);
+                if (!dbService.IsUserSingUpEvent(suser, data))
+                {
+                    userenrolled.UserId = suser.UserId;
+                    userenrolled.EventId = data.EventId;
+                    dbService.SingUpEvent(userenrolled);
+                    Console.WriteLine("Add event!");
+                   
+                }
+                else
+                {
+                  await Bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, $"Már feliratkoztál az eseményre. {data.StartDate} kor kezdődik!");
+                }
 
-            //}
+            }
+
         }
 
         static void InvokeMethod()
@@ -411,23 +427,41 @@ namespace DUE_Mernokinfo_Bot
                     case "/singupevent":
                         try
                         {
-                            UserEnrolled userenrolled = new UserEnrolled();
-                            User suser = dbService.GetUserByChatId(e.Message.Chat.Id);
-                            Data data = dbService.GetEventByName(messages[1].ToString());
-                            if (!dbService.IsUserSingUpEvent(suser, data))
+                            var allDatas = dbService.GetAllData();
+                            foreach (var item in allDatas)
                             {
-                                userenrolled.UserId = suser.UserId;
-                                userenrolled.EventId = data.EventId;
-                                dbService.SingUpEvent(userenrolled);
-                                Console.WriteLine("Add event!");
-                                break;
-                            }
-                            else
-                            {
-                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Már feliratkoztál az eseményre. {data.StartDate} kor kezdődik!");
+                                var inlineKeyboard = new InlineKeyboardMarkup(new[]
+                                {
+                                    new[]
+                                    {
+                                      InlineKeyboardButton.WithCallbackData("Emlékeztess!"),
+                                      InlineKeyboardButton.WithCallbackData("Ne emlékeztes!"),
+                                    }
 
-                                break;
+                                });
+                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{item.SubjectCode}", replyMarkup: inlineKeyboard);
+                                
                             }
+                            Bot.SendTextMessageAsync(e.Message.Chat.Id, "Done");
+                            break;
+                         
+                            //UserEnrolled userenrolled = new UserEnrolled();
+                            //User suser = dbService.GetUserByChatId(e.Message.Chat.Id);
+                            //Data data = dbService.GetEventByName(messages[1].ToString());
+                            //if (!dbService.IsUserSingUpEvent(suser, data))
+                            //{
+                            //    userenrolled.UserId = suser.UserId;
+                            //    userenrolled.EventId = data.EventId;
+                            //    dbService.SingUpEvent(userenrolled);
+                            //    Console.WriteLine("Add event!");
+                            //    break;
+                            //}
+                            //else
+                            //{
+                            //    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Már feliratkoztál az eseményre. {data.StartDate} kor kezdődik!");
+
+                            //    break;
+                            //}
                             //var inlineKeyboard = new InlineKeyboardMarkup(new[]
                             //   {
                             //        new[]

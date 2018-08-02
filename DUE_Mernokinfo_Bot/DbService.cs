@@ -185,6 +185,12 @@ namespace DUE_Mernokinfo_Bot
             }
 
         }
+        public IQueryable<Data> GetAllData()
+        {
+           return this.datas.Select(s => s);
+            
+           
+        }
              
     }
 }

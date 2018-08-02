@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DUE_Mernokinfo_Bot.exe" size="51192">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DUE_Mernokinfo_Bot.exe" size="52728">
       <assemblyIdentity name="DUE_Mernokinfo_Bot" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>LqotFP7Z9e8ALNYIp2cEBZRrsLsD9WUCLCntAHym0JA=</dsig:DigestValue>
+        <dsig:DigestValue>JaUi8T4Z1qp6AXAkxt5DkzYrir0Y3i+UvhTGotMGHeI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
