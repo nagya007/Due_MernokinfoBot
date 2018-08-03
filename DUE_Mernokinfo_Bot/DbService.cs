@@ -13,7 +13,7 @@ namespace DUE_Mernokinfo_Bot
         public DbSet<Data> datas;
         public DbSet<User> users;
         public DbSet<UserEnrolled> userEnrolleds;
-        public Writer w = new Writer();
+      
         public DbService()
         {
             context = new BotDbContext();
@@ -160,6 +160,17 @@ namespace DUE_Mernokinfo_Bot
             if (this.userEnrolleds.Add(userEnrolled).Equals(userEnrolled))
             {
                 this.userEnrolleds.Add(userEnrolled);
+                context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        public bool SingOutEvent(UserEnrolled userEnrolled)
+        {
+            var result = this.userEnrolleds.FirstOrDefault(ue => ue.EventId == userEnrolled.EventId && ue.UserId == userEnrolled.UserId);
+            if (result!=null)
+            {
+                this.userEnrolleds.Remove(result);
                 context.SaveChanges();
                 return true;
             }
