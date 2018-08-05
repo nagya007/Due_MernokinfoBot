@@ -12,8 +12,7 @@ namespace DUE_Mernokinfo_Bot
         public BotDbContext context;
         public DbSet<Data> datas;
         public DbSet<User> users;
-        public DbSet<UserEnrolled> userEnrolleds;
-      
+        public DbSet<UserEnrolled> userEnrolleds;      
         public DbService()
         {
             context = new BotDbContext();
@@ -95,11 +94,17 @@ namespace DUE_Mernokinfo_Bot
                               d.ZH
                           }).Where(z => z.UserId == user.UserId).OrderBy(d => d.StartDate).FirstOrDefault(d => d.ZH == true);
             string kiir = "";
-            kiir += $"{Writer.wSubjectcode}{result.SubjectCode}\n" +
-                $"{Writer.wClasscode}{result.ClassCode}\n" +
-                $"{Writer.wStartdate}{result.StartDate} \n " +
-                $"{Writer.wEnddate}{result.EndDate} \n {Writer.wZh}{result.ZH}\n";
+            if (result!=null)
+            {
+                kiir += $"{Writer.wSubjectcode}\n {result.SubjectCode}\n" +
+              $"{Writer.wClasscode}\n {result.ClassCode}\n" +
+              $"{Writer.wStartdate}\n{result.StartDate} \n " +
+              $"{Writer.wEnddate}\n {result.EndDate} \n {Writer.wZh}{result.ZH}\n";
+                return kiir;
+            }
             return kiir;
+               
+                     
         }
         public string GetDayByUserByDate(User user, DateTime date)
         {
@@ -120,18 +125,37 @@ namespace DUE_Mernokinfo_Bot
             string kiir = "";
             foreach (var item in resultu)
             {
-                kiir += $"{Writer.wSubjectcode}{item.SubjectCode}\n" +
-               $"{Writer.wClasscode}{item.ClassCode}\n" +
-               $"{Writer.wStartdate}{item.StartDate} \n " +
-               $"{Writer.wEnddate}{item.EndDate} \n " +
-               $"{Writer.wZh}{item.ZH}\n";
+                kiir += $"{Writer.wSubjectcode}\n {item.SubjectCode}\n" +
+               $"{Writer.wClasscode}\n{item.ClassCode}\n" +
+               $"{Writer.wStartdate}\n{item.StartDate} \n " +
+               $"{Writer.wEnddate}\n{item.EndDate} \n " +
+               $"{Writer.wZh}\n{item.ZH}\n";
             }
+            return kiir;
+        }
+        public string GetEventByDayWithAlarm(IQueryable<Data> data)
+        {           
+            var resultu = (from d in datas
+                           join ur in userEnrolleds on d.EventId equals ur.EventId
+                           join u in users on ur.UserId equals u.UserId
+                           select new
+                           {
+                               d.EventId,
+                               u.UserId,
+                               d.StartDate,
+                               d.EndDate,
+                               d.SubjectCode,
+                               d.ClassCode,
+                               d.ZH
+                           }).Where();
+
+            string kiir = "";
             return kiir;
         }
         public IQueryable<Data> GetHourByDate(DateTime date)
         {
             return this.datas.Where(data => data.StartDate.Year == date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day && data.StartDate.Hour == date.Hour && data.StartDate.Minute == date.Minute && data.StartDate.Second == date.Second);
-        }
+        }        
         public Data GetNextZh()
         {
             return this.datas.OrderBy(data => data.StartDate).FirstOrDefault(data => data.ZH == true);

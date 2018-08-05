@@ -87,6 +87,11 @@ namespace DUE_Mernokinfo_Bot
 
 
             }
+            if (callbackQuery.Data == "Irjatokbe")
+            {
+                
+            }
+            
         }
         static void InvokeMethod()
         {
@@ -97,8 +102,7 @@ namespace DUE_Mernokinfo_Bot
             }
         }
         public static void PrintTime()
-        {
-        
+        {        
             DbService dbService = new DbService();
             dbService.RemoveDataByEndDate();
             Console.WriteLine(DateTime.Now.ToString());
@@ -112,7 +116,7 @@ namespace DUE_Mernokinfo_Bot
                 ringone += $"Egy óra múlva kezdődik! \n {Writer.wSubjectcode}  \n{item.SubjectCode},\n {Writer.wClasscode} \n  {item.ClassCode}, \n {Writer.wStartdate} \n {item.StartDate}, \n {Writer.wEnddate} \n {item.EndDate}, \n {Writer.wZh}: \n {item.ZH}";
                 Console.WriteLine($" {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}");
             }
-            Bot.SendTextMessageAsync(-279234619, ringone);
+            Bot.SendTextMessageAsync(-1001105059482, ringone);
             DateTime tenminutedate = DateTime.Now.AddMinutes(10);
             IQueryable<Data> ringtenminute = dbService.GetHourByDate(tenminutedate);
             foreach (var item in ringtenminute)
@@ -120,8 +124,7 @@ namespace DUE_Mernokinfo_Bot
                 ringten += $"10 perc múlva kezdődik!  \n {Writer.wSubjectcode} \n{item.SubjectCode},\n {Writer.wClasscode} \n  {item.ClassCode}, \n {Writer.wStartdate} \n {item.StartDate}, \n {Writer.wEnddate} \n {item.EndDate}, \n {Writer.wZh} \n {item.ZH}";
                 Console.WriteLine($"  {item.SubjectCode}, {item.ClassCode}, {item.StartDate}, {item.EndDate}, {item.ZH}  ");
             }
-            Bot.SendTextMessageAsync(-279234619, ringten);
-
+            Bot.SendTextMessageAsync(-1001105059482, ringten);
         }
         public static void On_Message(object sender, MessageEventArgs e)
         {
@@ -311,7 +314,7 @@ namespace DUE_Mernokinfo_Bot
                         case "/myid":
                             try
                             {
-
+                                Bot.SendTextMessageAsync(-1001294940278, $"Megvagy :) ");
                                 Bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Chat.Id.ToString());
                                 Console.WriteLine(e.Message.Chat.Id.ToString());
                                 break;
@@ -392,18 +395,17 @@ namespace DUE_Mernokinfo_Bot
                             }
                         case "/mynextzh":
                             try
-                            {
-                                
+                            {                                
                                 User nextuser = dbService.GetUserByChatId(e.Message.Chat.Id);
                                 var nextzh = dbService.GetNextZhByUser(nextuser);
-                                if (nextzh.Any())
+                                if (nextzh !="")
                                 {
-                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{nextzh}s");
+                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $" {nextzh} s");
                                     break;
                                 }
                                 else
                                 {
-                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Nincs zh!");
+                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Nincs zhd!");
                                     break;
                                 }
                             }
