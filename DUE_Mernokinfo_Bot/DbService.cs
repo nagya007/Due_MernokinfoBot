@@ -133,25 +133,6 @@ namespace DUE_Mernokinfo_Bot
             }
             return kiir;
         }
-        public string GetEventByDayWithAlarm(IQueryable<Data> data)
-        {           
-            var resultu = (from d in datas
-                           join ur in userEnrolleds on d.EventId equals ur.EventId
-                           join u in users on ur.UserId equals u.UserId
-                           select new
-                           {
-                               d.EventId,
-                               u.UserId,
-                               d.StartDate,
-                               d.EndDate,
-                               d.SubjectCode,
-                               d.ClassCode,
-                               d.ZH
-                           }).Where();
-
-            string kiir = "";
-            return kiir;
-        }
         public IQueryable<Data> GetHourByDate(DateTime date)
         {
             return this.datas.Where(data => data.StartDate.Year == date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day && data.StartDate.Hour == date.Hour && data.StartDate.Minute == date.Minute && data.StartDate.Second == date.Second);

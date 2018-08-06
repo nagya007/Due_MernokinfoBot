@@ -14,6 +14,7 @@ namespace DUE_Mernokinfo_Bot
         [Key]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string NeptunCode { get; set; }
         public string Name { get; set; }
         public long ChatId { get; set; }
     }

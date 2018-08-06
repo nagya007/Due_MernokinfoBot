@@ -3,7 +3,7 @@ namespace DUE_Mernokinfo_Bot.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Refresshdatabase : DbMigration
+    public partial class DueDatabase : DbMigration
     {
         public override void Up()
         {
@@ -17,6 +17,7 @@ namespace DUE_Mernokinfo_Bot.Migrations
                         SubjectCode = c.String(),
                         ClassCode = c.String(),
                         ZH = c.Boolean(nullable: false),
+                        CanBeWrite = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.EventId);
             
@@ -40,6 +41,7 @@ namespace DUE_Mernokinfo_Bot.Migrations
                     {
                         UserId = c.Int(nullable: false, identity: true),
                         UserName = c.String(),
+                        NeptunCode = c.String(),
                         Name = c.String(),
                         ChatId = c.Long(nullable: false),
                     })

@@ -87,9 +87,9 @@
     <Compile Include="BusinessLogicService.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DbService.cs" />
-    <Compile Include="Migrations\201806290719185_Refressh database.cs" />
-    <Compile Include="Migrations\201806290719185_Refressh database.Designer.cs">
-      <DependentUpon>201806290719185_Refressh database.cs</DependentUpon>
+    <Compile Include="Migrations\201808062002085_DueDatabase.cs" />
+    <Compile Include="Migrations\201808062002085_DueDatabase.Designer.cs">
+      <DependentUpon>201808062002085_DueDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -116,8 +116,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806290719185_Refressh database.resx">
-      <DependentUpon>201806290719185_Refressh database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808062002085_DueDatabase.resx">
+      <DependentUpon>201808062002085_DueDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

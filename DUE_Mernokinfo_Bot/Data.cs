@@ -18,6 +18,7 @@ namespace DUE_Mernokinfo_Bot
         public String SubjectCode { get; set; }
         public String ClassCode { get; set; }
         public bool ZH { get; set; }
+        public bool CanBeWrite { get; set; }
         public bool IsEmpty()
         {
             if ( StartDate != null || EndDate != null || SubjectCode==null)

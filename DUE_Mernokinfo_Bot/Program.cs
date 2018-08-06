@@ -36,6 +36,7 @@ namespace DUE_Mernokinfo_Bot
         }
         private static async void Bot_OnCallbackQuery(object sender, CallbackQueryEventArgs e)
         {
+            DbService dbService = new DbService();
             var callbackQuery = e.CallbackQuery;
             //  var callbackQuery = callbackQueryEventArgs.CallbackQuery;
             await Bot.AnswerCallbackQueryAsync(
@@ -45,9 +46,7 @@ namespace DUE_Mernokinfo_Bot
             //    callbackQuery.Message.Chat.Id,
             //    $"Received {callbackQuery.Data}");       
             if (callbackQuery.Data == "Emlékeztess!")
-            {
-                DbService dbService = new DbService();
-             
+            {                             
                 UserEnrolled userenrolled = new UserEnrolled();
                 User suser = dbService.GetUserByChatId(callbackQuery.Message.Chat.Id);
                 Data data = dbService.GetEventByName(callbackQuery.Message.Text);
@@ -67,7 +66,7 @@ namespace DUE_Mernokinfo_Bot
             }
             if (callbackQuery.Data == "Ne emlékeztes!")
             {
-                DbService dbService = new DbService();
+             
                 
                 UserEnrolled userenrolled = new UserEnrolled();
                 User suser = dbService.GetUserByChatId(callbackQuery.Message.Chat.Id);
@@ -87,9 +86,13 @@ namespace DUE_Mernokinfo_Bot
 
 
             }
+            string s = "Ala \n";
             if (callbackQuery.Data == "Irjatokbe")
             {
-                
+                User u = dbService.GetUserByChatId(callbackQuery.From.Id);
+                await Bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, u.Name);
+                s += callbackQuery.From.Username;
+                await Bot.EditMessageTextAsync(callbackQuery.From.Id, callbackQuery.Message.MessageId, s);            
             }
             
         }
@@ -433,15 +436,18 @@ namespace DUE_Mernokinfo_Bot
                                 var allDatas = dbService.GetAllData();
                                 foreach (var item in allDatas)
                                 {
-                                    var inlineKeyboard = new InlineKeyboardMarkup(new[]
-                                    {
-                                    new[]
-                                    {
-                                      InlineKeyboardButton.WithCallbackData("Emlékeztess!"),
-                                      InlineKeyboardButton.WithCallbackData("Ne emlékeztes!"),
-                                    }
+                                    var inlineKeyboard = new InlineKeyboardMarkup
+                                        (
+                                        new[]
+                                        {
+                                        new[]
+                                        {
+                                            InlineKeyboardButton.WithCallbackData("Emlékeztess!"),
+                                            InlineKeyboardButton.WithCallbackData("Ne emlékeztes!"),
+                                        }
 
-                                });                                 
+                                        });
+                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{item.SubjectCode}", replyMarkup: inlineKeyboard);
 
                                 }
                               
@@ -492,8 +498,7 @@ namespace DUE_Mernokinfo_Bot
                         case "/calender":
                             try
                             {
-                                int month;
-                                int day;
+                               
                                 var inlineKeyboard0 = new InlineKeyboardMarkup(new[]
                                 {
                                 new[]
@@ -584,6 +589,29 @@ namespace DUE_Mernokinfo_Bot
                             {
 
                                 throw;
+                            }
+                        case "/beir":
+                            try
+                            {
+                                var inlineKeyboard = new InlineKeyboardMarkup
+                                        (
+                                        new[]
+                                        {
+                                        new[]
+                                        {
+                                            
+                                            InlineKeyboardButton.WithCallbackData("Irjatokbe"),
+                                        }
+
+                                        });
+                                Bot.SendTextMessageAsync(e.Message.Chat.Id, $"Luk vagy Fa", replyMarkup: inlineKeyboard);
+                                Bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.MessageId.ToString());
+                                break;
+                            }
+                            catch (Exception)
+                            {
+
+                                break;
                             }
                     }
                 }
