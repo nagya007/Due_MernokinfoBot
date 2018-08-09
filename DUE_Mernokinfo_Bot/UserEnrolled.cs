@@ -18,5 +18,6 @@ namespace DUE_Mernokinfo_Bot
         public int EventId { get; set; }
         public User User { get; set; }
         public Data Data { get; set; }
+        public bool Recurrent { get; set; }
     }
 }
