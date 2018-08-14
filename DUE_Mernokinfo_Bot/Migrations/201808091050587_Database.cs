@@ -3,7 +3,7 @@ namespace DUE_Mernokinfo_Bot.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DueDatabase : DbMigration
+    public partial class Database : DbMigration
     {
         public override void Up()
         {
@@ -28,6 +28,7 @@ namespace DUE_Mernokinfo_Bot.Migrations
                         UserEnrolledId = c.Int(nullable: false, identity: true),
                         UserId = c.Int(nullable: false),
                         EventId = c.Int(nullable: false),
+                        Recurrent = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.UserEnrolledId)
                 .ForeignKey("dbo.Data", t => t.EventId, cascadeDelete: true)

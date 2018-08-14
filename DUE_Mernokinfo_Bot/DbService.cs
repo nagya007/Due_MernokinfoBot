@@ -20,28 +20,7 @@ namespace DUE_Mernokinfo_Bot
             this.users = context.Users;
             this.userEnrolleds = context.UserEnrolleds;
 
-        }
-        public bool AddData(Data data)
-        {
-            if (this.datas.Add(data).Equals(data))
-            {
-                this.datas.Add(data);
-                context.SaveChanges();
-                return true;
-            }
-            return false;
-        }
-        public bool RemoveDataByEndDate()
-        {
-            var result = this.datas.SingleOrDefault(datas => datas.EndDate <= DateTime.Now);
-            if (result != null)
-            {
-                datas.Remove(result);
-                context.SaveChanges();
-                return true;
-            }
-            return false;
-        }
+        }    
         public IQueryable<Data> GetDayByDate(DateTime date)
         {
             return this.datas.Where(data => data.StartDate.Year == date.Year && data.StartDate.Month == date.Month && data.StartDate.Day == date.Day);
@@ -159,28 +138,7 @@ namespace DUE_Mernokinfo_Bot
                 return true;
             }
             return false;
-        }
-        public bool SingUpEvent(UserEnrolled userEnrolled)
-        {
-            if (this.userEnrolleds.Add(userEnrolled).Equals(userEnrolled))
-            {
-                this.userEnrolleds.Add(userEnrolled);
-                context.SaveChanges();
-                return true;
-            }
-            return false;
-        }
-        public bool SingOutEvent(UserEnrolled userEnrolled)
-        {
-            var result = this.userEnrolleds.FirstOrDefault(ue => ue.EventId == userEnrolled.EventId && ue.UserId == userEnrolled.UserId);
-            if (result!=null)
-            {
-                this.userEnrolleds.Remove(result);
-                context.SaveChanges();
-                return true;
-            }
-            return false;
-        }
+        }             
         public User GetUserByChatId(long chatid)
         {
             return this.users.FirstOrDefault(u => u.ChatId == chatid);
