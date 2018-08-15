@@ -18,5 +18,5 @@ E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.application
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csprojAssemblyReference.cache
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csproj.CopyComplete
-E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.Migrations.Database.resources
+E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.Migrations.DataBase.resources
 E:\Users\Nagy Adam\Documents\DUE_Mernokinfo_Bot\DUE_Mernokinfo_Bot\obj\Debug\DUE_Mernokinfo_Bot.csproj.GenerateResource.cache

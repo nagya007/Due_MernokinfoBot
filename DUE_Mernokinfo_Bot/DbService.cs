@@ -12,14 +12,13 @@ namespace DUE_Mernokinfo_Bot
         public BotDbContext context;
         public DbSet<Data> datas;
         public DbSet<User> users;
-        public DbSet<UserEnrolled> userEnrolleds;      
+        public DbSet<UserEnrolled> userEnrolleds;
         public DbService()
         {
             context = new BotDbContext();
             this.datas = context.Datas;
             this.users = context.Users;
             this.userEnrolleds = context.UserEnrolleds;
-
         }    
         public IQueryable<Data> GetDayByDate(DateTime date)
         {
@@ -52,8 +51,6 @@ namespace DUE_Mernokinfo_Bot
                             $"{Writer.wStartdate}\n{item.StartDate} \n " +
                             $"{Writer.wEnddate}\n{item.EndDate} \n " +
                             $"{Writer.wZh}{item.ZH}\n \n";
-
-
             }
             return kiir;
         }
@@ -81,9 +78,7 @@ namespace DUE_Mernokinfo_Bot
               $"{Writer.wEnddate}\n {result.EndDate} \n {Writer.wZh}{result.ZH}\n";
                 return kiir;
             }
-            return kiir;
-               
-                     
+            return kiir;    
         }
         public string GetDayByUserByDate(User user, DateTime date)
         {
@@ -157,14 +152,10 @@ namespace DUE_Mernokinfo_Bot
             {
                 return false;
             }
-
         }
         public IQueryable<Data> GetAllData()
         {
-           return this.datas.Select(s => s);
-            
-           
-        }
-             
+           return this.datas.Select(s => s);        
+        }            
     }
 }

@@ -88,9 +88,9 @@
     <Compile Include="Data.cs" />
     <Compile Include="DbService.cs" />
     <Compile Include="EventHandler.cs" />
-    <Compile Include="Migrations\201808091050587_Database.cs" />
-    <Compile Include="Migrations\201808091050587_Database.Designer.cs">
-      <DependentUpon>201808091050587_Database.cs</DependentUpon>
+    <Compile Include="Migrations\201808150952494_DataBase.cs" />
+    <Compile Include="Migrations\201808150952494_DataBase.Designer.cs">
+      <DependentUpon>201808150952494_DataBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MonitoringSerivice.cs" />
@@ -120,8 +120,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808091050587_Database.resx">
-      <DependentUpon>201808091050587_Database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808150952494_DataBase.resx">
+      <DependentUpon>201808150952494_DataBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

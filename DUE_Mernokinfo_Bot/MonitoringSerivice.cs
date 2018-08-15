@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DUE_Mernokinfo_Bot
 {
-    class MonitoringSerivice
+  public class MonitoringSerivice
     {
     }
 }

@@ -21,6 +21,8 @@ namespace DUE_Mernokinfo_Bot
         private static readonly TelegramBotClient Bot = new TelegramBotClient("506745618:AAGWmuVwrFYxJZcYeaC3tXX9TDyQn3LbDzo");
         public DbService dbService = new DbService();
         public BotDbContext context = new BotDbContext();
+        public SubscriptionHandler subscriptionHandler = new SubscriptionHandler();
+        public EventHandler eventHandler = new EventHandler();        
         public static string username;        
         static void Main(string[] args)
         {
@@ -37,10 +39,11 @@ namespace DUE_Mernokinfo_Bot
         private static async void Bot_OnCallbackQuery(object sender, CallbackQueryEventArgs e)
         {
             DbService dbService = new DbService();
+            SubscriptionHandler subscriptionHandler = new SubscriptionHandler();
             var callbackQuery = e.CallbackQuery;
-            //  var callbackQuery = callbackQueryEventArgs.CallbackQuery;
+            //var callbackQuery = callbackQueryEventArgs.CallbackQuery;
             await Bot.AnswerCallbackQueryAsync(
-                callbackQuery.Id,
+                callbackQuery.Id.ToString(),
                 $"{callbackQuery.Data}");
             //await Bot.SendTextMessageAsync(
             //    callbackQuery.Message.Chat.Id,
@@ -54,7 +57,7 @@ namespace DUE_Mernokinfo_Bot
                 {
                     userenrolled.UserId = suser.UserId;
                     userenrolled.EventId = data.EventId;
-                    dbService.SingUpEvent(userenrolled);
+                    subscriptionHandler.SingUpEvent(userenrolled);
                     Console.WriteLine("Add event!");
                     await Bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, string.Format("{0} eseméyre feliratkoztál!", callbackQuery.Message.Text), replyMarkup: new ReplyKeyboardRemove());
                 }
@@ -72,7 +75,7 @@ namespace DUE_Mernokinfo_Bot
                 {
                     userenrolled.UserId = suser.UserId;
                     userenrolled.EventId = data.EventId;
-                    dbService.SingOutEvent(userenrolled);
+                    subscriptionHandler.SingOutEvent(userenrolled);
                     Console.WriteLine("Delet Event!");
                     await Bot.SendTextMessageAsync(callbackQuery.Message.Chat.Id, string.Format("{0} eseményről leiratkoztál!", callbackQuery.Message.Text), replyMarkup: new ReplyKeyboardRemove());
                 }
@@ -124,9 +127,10 @@ namespace DUE_Mernokinfo_Bot
             }
         }
         public static void PrintTime()
-        {        
+        {
             DbService dbService = new DbService();
-            dbService.RemoveDataByEndDate();
+            EventHandler eventHandler = new EventHandler();
+            eventHandler.RemoveDataByEndDate();
             Console.WriteLine(DateTime.Now.ToString());
             DateTime onehure = DateTime.Now.AddHours(1);
             IQueryable<Data> ringonehour = dbService.GetHourByDate(onehure);
@@ -150,6 +154,7 @@ namespace DUE_Mernokinfo_Bot
         public static void On_Message(object sender, MessageEventArgs e)
         {
             DbService dbService = new DbService();
+            EventHandler eventHandler = new EventHandler();  
             if (e.Message.Chat.Id == -279234619 || e.Message.Chat.Id == -1001105059482 || e.Message.Chat.Id == -277596717)
             {
                 if (e.Message.Type == MessageType.Text)
@@ -183,7 +188,7 @@ namespace DUE_Mernokinfo_Bot
                                 newdata.ClassCode = messages[4];
                                 newdata.ZH = Convert.ToBoolean(messages[5]);
                                 newdata.CanBeWrite = Convert.ToBoolean(messages[6]);
-                                dbService.AddData(newdata);
+                                eventHandler.AddData(newdata);
                                 Bot.SendTextMessageAsync(e.Message.Chat.Id, "Sikeresen hozzáadtad az eseményt!");
                                 break;
                             }
@@ -350,7 +355,7 @@ namespace DUE_Mernokinfo_Bot
                                 newdata.ClassCode = messages[4];
                                 newdata.ZH = Convert.ToBoolean(messages[5]);
                                 newdata.CanBeWrite = Convert.ToBoolean(messages[6]);
-                                dbService.AddData(newdata);
+                                eventHandler.AddData(newdata);
                                 Bot.SendTextMessageAsync(e.Message.Chat.Id, "Sikeresen hozzáadtad az eseményt!");
                                 break;
                             }
@@ -414,7 +419,7 @@ namespace DUE_Mernokinfo_Bot
                                 var nextzh = dbService.GetNextZhByUser(nextuser);
                                 if (nextzh !="")
                                 {
-                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $" {nextzh} s");
+                                    Bot.SendTextMessageAsync(e.Message.Chat.Id, $" {nextzh}");
                                     break;
                                 }
                                 else
@@ -601,7 +606,6 @@ namespace DUE_Mernokinfo_Bot
                                         {                                            
                                             InlineKeyboardButton.WithCallbackData("Irjatokbe"),
                                         }
-
                                         });
                                 Bot.SendTextMessageAsync(-1001294940278, $"Kit kell beírni az alábbi eseményre: \n {messages[1]} ", replyMarkup: inlineKeyboard);                               
                                 break;

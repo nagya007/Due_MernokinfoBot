@@ -3,7 +3,7 @@ namespace DUE_Mernokinfo_Bot.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Database : DbMigration
+    public partial class DataBase : DbMigration
     {
         public override void Up()
         {

@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace DUE_Mernokinfo_Bot
 {
-    class EventHandler
+   public class EventHandler
     {
         public BotDbContext context;
         public DbSet<Data> datas;
@@ -38,6 +38,5 @@ namespace DUE_Mernokinfo_Bot
             }
             return false;
         }
-
     }
 }

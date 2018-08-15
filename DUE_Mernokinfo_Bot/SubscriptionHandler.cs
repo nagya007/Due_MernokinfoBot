@@ -7,13 +7,14 @@ using System.Data.Entity;
 
 namespace DUE_Mernokinfo_Bot
 {
-    class SubscriptionHandler
+   public class SubscriptionHandler
     {
         public BotDbContext context;
         public DbSet<UserEnrolled> userEnrolleds;
         public SubscriptionHandler()
         {
             context = new BotDbContext();
+            this.userEnrolleds = context.UserEnrolleds;
             this.userEnrolleds = context.UserEnrolleds;
         }
         public bool SingOutEvent(UserEnrolled userEnrolled)
@@ -36,6 +37,6 @@ namespace DUE_Mernokinfo_Bot
                 return true;
             }
             return false;
-        }
+        }       
     }
 }
