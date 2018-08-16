@@ -461,7 +461,6 @@ namespace DUE_Mernokinfo_Bot
                                             InlineKeyboardButton.WithCallbackData("Emlékeztess!"),
                                             InlineKeyboardButton.WithCallbackData("Ne emlékeztes!"),
                                         }
-
                                         });
                                     Bot.SendTextMessageAsync(e.Message.Chat.Id, $"{item.SubjectCode}", replyMarkup: inlineKeyboard);
                                 }                              

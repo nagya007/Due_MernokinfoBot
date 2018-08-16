@@ -84,19 +84,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotDbContext.cs" />
-    <Compile Include="BusinessLogicService.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DbService.cs" />
     <Compile Include="EventHandler.cs" />
+    <Compile Include="EventProcessor.cs" />
     <Compile Include="Migrations\201808150952494_DataBase.cs" />
     <Compile Include="Migrations\201808150952494_DataBase.Designer.cs">
       <DependentUpon>201808150952494_DataBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="MonitoringSerivice.cs" />
+    <Compile Include="NotificationCallback .cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecurrencyHandler.cs" />
     <Compile Include="SubscriptionHandler.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserEnrolled.cs" />
